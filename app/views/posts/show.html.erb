@@ -1,0 +1,21 @@
+<h1><%= @post.title %></h1>
+
+  <%= @post.text %>
+  <h2>Comments<h2>
+  	<% @post.comments.each do |comment|%>
+    <p><%= comment.text-%></p>
+	<p><%= time_ago_in_words comment.created_at%></p>
+	<p><%= link_to "Delete comment" , [@post,comment],:method=>:delete,:confirm =>"Are you sure?" %><p>
+	<%end%>
+
+	<%= form_for [@post, @post.comments.build] do |f|%>
+	 <P><%= f.text_area :text, :size=> '40*10'-%></p>
+	 	<p><%=f.submit "Post comment" %></p>
+	 	<%end%>
+	<p>
+<%= link_to "Back", post_path -%>
+|
+<%= link_to "Edit", edit_post_path(@post)%>
+|
+<%= link_to "Delete", @post, :method=>:delete,:confirm => "Are you sure ?"%>
+</p>
